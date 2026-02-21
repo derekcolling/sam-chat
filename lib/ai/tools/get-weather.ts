@@ -1,6 +1,10 @@
 import { tool } from "ai";
 import { z } from "zod";
 
+// Downtown Santa Monica default coordinates
+const SANTA_MONICA_LAT = 34.0195;
+const SANTA_MONICA_LON = -118.4912;
+
 async function geocodeCity(
   city: string
 ): Promise<{ latitude: number; longitude: number } | null> {
@@ -31,19 +35,19 @@ async function geocodeCity(
 
 export const getWeather = tool({
   description:
-    "Get the current weather at a location. You can provide either coordinates or a city name.",
+    "Get the current weather at a location. Defaults to Santa Monica if no location is provided. Use city name 'Santa Monica' for local weather.",
   inputSchema: z.object({
     latitude: z.number().optional(),
     longitude: z.number().optional(),
     city: z
       .string()
-      .describe("City name (e.g., 'San Francisco', 'New York', 'London')")
+      .describe("City name (e.g., 'Santa Monica', 'Los Angeles')")
       .optional(),
   }),
-  needsApproval: true,
   execute: async (input) => {
     let latitude: number;
     let longitude: number;
+    let cityName: string | undefined;
 
     if (input.city) {
       const coords = await geocodeCity(input.city);
@@ -54,24 +58,25 @@ export const getWeather = tool({
       }
       latitude = coords.latitude;
       longitude = coords.longitude;
+      cityName = input.city;
     } else if (input.latitude !== undefined && input.longitude !== undefined) {
       latitude = input.latitude;
       longitude = input.longitude;
     } else {
-      return {
-        error:
-          "Please provide either a city name or both latitude and longitude coordinates.",
-      };
+      // Default to Santa Monica
+      latitude = SANTA_MONICA_LAT;
+      longitude = SANTA_MONICA_LON;
+      cityName = "Santa Monica";
     }
 
     const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto`
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto&temperature_unit=fahrenheit`
     );
 
     const weatherData = await response.json();
 
-    if ("city" in input) {
-      weatherData.cityName = input.city;
+    if (cityName) {
+      weatherData.cityName = cityName;
     }
 
     return weatherData;

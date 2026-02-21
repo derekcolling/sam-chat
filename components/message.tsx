@@ -22,6 +22,8 @@ import { MessageEditor } from "./message-editor";
 import { MessageReasoning } from "./message-reasoning";
 import { PreviewAttachment } from "./preview-attachment";
 import { Weather } from "./weather";
+import { ParkingStatus } from "./parking-status";
+import { BeachSafetyCard } from "./beach-safety-card";
 
 const PurePreviewMessage = ({
   addToolApprovalResponse,
@@ -179,6 +181,50 @@ const PurePreviewMessage = ({
                 <div className={widthClass} key={toolCallId}>
                   <div className="flex items-center gap-2 rounded-2xl bg-muted/50 p-4 text-muted-foreground text-sm">
                     <span className="animate-pulse">Checking weather...</span>
+                  </div>
+                </div>
+              );
+            }
+
+            if (type === "tool-getParking") {
+              const { toolCallId, state } = part;
+              const widthClass = "w-[min(100%,450px)]";
+
+              if (state === "output-available") {
+                return (
+                  <div className={widthClass} key={toolCallId}>
+                    <ParkingStatus parkingData={part.output} />
+                  </div>
+                );
+              }
+
+              // Loading state while parking data is being fetched
+              return (
+                <div className={widthClass} key={toolCallId}>
+                  <div className="flex items-center gap-2 rounded-2xl bg-muted/50 p-4 text-muted-foreground text-sm">
+                    <span className="animate-pulse">Checking parking availability...</span>
+                  </div>
+                </div>
+              );
+            }
+
+            if (type === "tool-getBeachSafety") {
+              const { toolCallId, state } = part;
+              const widthClass = "w-[min(100%,450px)]";
+
+              if (state === "output-available") {
+                return (
+                  <div className={widthClass} key={toolCallId}>
+                    <BeachSafetyCard beachData={part.output} />
+                  </div>
+                );
+              }
+
+              // Loading state
+              return (
+                <div className={widthClass} key={toolCallId}>
+                  <div className="flex items-center gap-2 rounded-2xl bg-muted/50 p-4 text-muted-foreground text-sm">
+                    <span className="animate-pulse">Checking latest beach safety data...</span>
                   </div>
                 </div>
               );

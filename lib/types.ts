@@ -5,6 +5,8 @@ import type { createDocument } from "./ai/tools/create-document";
 import type { getWeather } from "./ai/tools/get-weather";
 import type { requestSuggestions } from "./ai/tools/request-suggestions";
 import type { updateDocument } from "./ai/tools/update-document";
+import type { getParking } from "./ai/tools/get-parking";
+import type { getBeachSafety } from "./ai/tools/get-beach-safety"; // Added import
 import type { Suggestion } from "./db/schema";
 
 export type DataPart = { type: "append-message"; message: string };
@@ -21,9 +23,13 @@ type updateDocumentTool = InferUITool<ReturnType<typeof updateDocument>>;
 type requestSuggestionsTool = InferUITool<
   ReturnType<typeof requestSuggestions>
 >;
+type parkingTool = InferUITool<typeof getParking>;
+type beachSafetyTool = InferUITool<typeof getBeachSafety>; // Added type definition
 
 export type ChatTools = {
   getWeather: weatherTool;
+  getParking: parkingTool;
+  getBeachSafety: beachSafetyTool;
   createDocument: createDocumentTool;
   updateDocument: updateDocumentTool;
   requestSuggestions: requestSuggestionsTool;

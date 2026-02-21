@@ -17,6 +17,8 @@ import { createDocument } from "@/lib/ai/tools/create-document";
 import { getWeather } from "@/lib/ai/tools/get-weather";
 import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
 import { updateDocument } from "@/lib/ai/tools/update-document";
+import { getParking } from "@/lib/ai/tools/get-parking";
+import { getBeachSafety } from "@/lib/ai/tools/get-beach-safety";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -147,20 +149,24 @@ export async function POST(request: Request) {
           experimental_activeTools: isReasoningModel
             ? []
             : [
-                "getWeather",
-                "createDocument",
-                "updateDocument",
-                "requestSuggestions",
-              ],
+              "getWeather",
+              "getParking",
+              "getBeachSafety",
+              "createDocument",
+              "updateDocument",
+              "requestSuggestions",
+            ],
           providerOptions: isReasoningModel
             ? {
-                anthropic: {
-                  thinking: { type: "enabled", budgetTokens: 10_000 },
-                },
-              }
+              anthropic: {
+                thinking: { type: "enabled", budgetTokens: 10_000 },
+              },
+            }
             : undefined,
           tools: {
             getWeather,
+            getParking,
+            getBeachSafety,
             createDocument: createDocument({ session, dataStream }),
             updateDocument: updateDocument({ session, dataStream }),
             requestSuggestions: requestSuggestions({ session, dataStream }),

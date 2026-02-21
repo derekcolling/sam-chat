@@ -1,23 +1,23 @@
 <a href="https://chat.vercel.ai/">
   <img alt="Next.js 14 and App Router-ready OpenChat." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">OpenChat</h1>
+  <h1 align="center">Ask Sam | Downtown Santa Monica Guide</h1>
 </a>
 
 <p align="center">
-    OpenChat (formerly AI Chatbot) is a free, open-source template built with Next.js and the AI SDK that helps you quickly build powerful chatbot applications.
+    Ask Sam is a Downtown Santa Monica visitor chatbot built on the OpenChat framework with Next.js and the AI SDK. The bot persona is "Sam," a friendly, knowledgeable local guide that helps visitors find businesses, get real-time parking data, learn about events, and navigate the district.
 </p>
 
 <p align="center">
-  <a href="https://openchat.dev"><strong>Read Docs</strong></a> ·
   <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
   <a href="#running-locally"><strong>Running locally</strong></a>
 </p>
 <br/>
 
 ## Features
 
+- **Real-Time Parking Integration**: Built-in AI tool to fetch live parking availability in Downtown Santa Monica structures with custom generative UI elements.
+- **Dynamic Weather**: Instantly fetches local weather for Santa Monica beach days.
+- **Business Directory Knowledge Base**: Sam can recommend and provide details for prominent local businesses like The Lobster, Elephante, and Ye Olde King's Head.
 - [Next.js](https://nextjs.org) App Router
   - Advanced routing for seamless navigation and performance
   - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance

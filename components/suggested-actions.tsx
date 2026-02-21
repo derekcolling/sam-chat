@@ -23,19 +23,19 @@ function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
 
   return (
     <div
-      className="grid w-full gap-2 sm:grid-cols-2"
+      className="flex flex-wrap justify-center gap-2"
       data-testid="suggested-actions"
     >
       {suggestedActions.map((suggestedAction, index) => (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          initial={{ opacity: 0, y: 20 }}
+          exit={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 10 }}
           key={suggestedAction}
           transition={{ delay: 0.05 * index }}
         >
           <Suggestion
-            className="h-auto w-full whitespace-normal p-3 text-left"
+            className="rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground transition-colors hover:bg-muted"
             onClick={(suggestion) => {
               window.history.pushState({}, "", `/chat/${chatId}`);
               sendMessage({

@@ -24,32 +24,8 @@ function PureChatHeader({
   const { width: windowWidth } = useWindowSize();
 
   return (
-    <header className="sticky top-0 flex items-center gap-2 bg-background px-2 py-1.5 md:px-2">
-      <SidebarToggle />
-
-      {(!open || windowWidth < 768) && (
-        <Button
-          className="order-2 ml-auto h-8 px-2 md:order-1 md:ml-0 md:h-fit md:px-2"
-          onClick={() => {
-            router.push("/");
-            router.refresh();
-          }}
-          variant="outline"
-        >
-          <PlusIcon />
-          <span className="md:sr-only">New Chat</span>
-        </Button>
-      )}
-
-      {!isReadonly && (
-        <VisibilitySelector
-          chatId={chatId}
-          className="order-1 md:order-2"
-          selectedVisibilityType={selectedVisibilityType}
-        />
-      )}
-
-      <span className="order-3 hidden text-sm font-medium text-muted-foreground md:ml-auto md:block">
+    <header className="sticky top-0 flex items-center justify-center bg-background px-2 py-1.5 md:px-2">
+      <span className="text-sm font-medium text-muted-foreground">
         Ask Sam
       </span>
     </header>

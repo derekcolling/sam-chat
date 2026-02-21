@@ -6,6 +6,8 @@ import type { ChatMessage } from "@/lib/types";
 import { useDataStream } from "./data-stream-provider";
 import { Greeting } from "./greeting";
 import { PreviewMessage, ThinkingMessage } from "./message";
+import { SuggestedActions } from "./suggested-actions";
+import type { VisibilityType } from "./visibility-selector";
 
 type MessagesProps = {
   addToolApprovalResponse: UseChatHelpers<ChatMessage>["addToolApprovalResponse"];
@@ -14,10 +16,12 @@ type MessagesProps = {
   votes: Vote[] | undefined;
   messages: ChatMessage[];
   setMessages: UseChatHelpers<ChatMessage>["setMessages"];
+  sendMessage: UseChatHelpers<ChatMessage>["sendMessage"];
   regenerate: UseChatHelpers<ChatMessage>["regenerate"];
   isReadonly: boolean;
   isArtifactVisible: boolean;
   selectedModelId: string;
+  selectedVisibilityType: VisibilityType;
 };
 
 function PureMessages({
@@ -27,9 +31,11 @@ function PureMessages({
   votes,
   messages,
   setMessages,
+  sendMessage,
   regenerate,
   isReadonly,
   selectedModelId: _selectedModelId,
+  selectedVisibilityType,
 }: MessagesProps) {
   const {
     containerRef: messagesContainerRef,
@@ -50,7 +56,18 @@ function PureMessages({
         ref={messagesContainerRef}
       >
         <div className="mx-auto flex min-w-0 max-w-4xl flex-col gap-4 px-2 py-4 md:gap-6 md:px-4">
-          {messages.length === 0 && <Greeting />}
+          {messages.length === 0 && (
+            <>
+              <Greeting />
+              <div className="mx-auto max-w-3xl px-4 md:px-8">
+                <SuggestedActions
+                  chatId={chatId}
+                  selectedVisibilityType={selectedVisibilityType}
+                  sendMessage={sendMessage}
+                />
+              </div>
+            </>
+          )}
 
           {messages.map((message, index) => (
             <PreviewMessage

@@ -2,15 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { memo } from "react";
-import { useWindowSize } from "usehooks-ts";
-import Link from "next/link";
-import { Brain } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { SidebarToggle } from "@/components/sidebar-toggle";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "./icons";
-import { useSidebar } from "./ui/sidebar";
-import { VisibilitySelector, type VisibilityType } from "./visibility-selector";
+import { type VisibilityType } from "./visibility-selector";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 function PureChatHeader({
@@ -23,9 +18,6 @@ function PureChatHeader({
   isReadonly: boolean;
 }) {
   const router = useRouter();
-  const { open } = useSidebar();
-
-  const { width: windowWidth } = useWindowSize();
 
   return (
     <header className="sticky top-0 flex items-center justify-between bg-background px-2 py-1.5 md:px-2 border-b h-12">
@@ -43,15 +35,6 @@ function PureChatHeader({
         <span className="text-sm font-medium text-muted-foreground">
           Ask Sam
         </span>
-        <Link href="/memory">
-          <Badge
-            variant="outline"
-            className="text-[10px] h-5 px-1.5 flex items-center gap-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 transition-colors cursor-pointer"
-          >
-            <Brain className="w-3 h-3" />
-            Memory Beta
-          </Badge>
-        </Link>
       </div>
 
       <div className="flex items-center gap-2">

@@ -45,17 +45,19 @@ function PureArtifactMessages({
       className="flex h-full flex-col items-center gap-4 overflow-y-scroll px-4 pt-20"
       ref={messagesContainerRef}
     >
-      {messages.map((message, index) => (
+      {messages.filter((message) =>
+        !(message.role === "user" && message.parts?.length === 1 && message.parts[0].type === "text" && (message.parts[0] as { type: "text"; text: string }).text === "[NEW_VISITOR_INIT]")
+      ).map((message, index, filtered) => (
         <PreviewMessage
           addToolResult={addToolResult}
           chatId={chatId}
-          isLoading={status === "streaming" && index === messages.length - 1}
+          isLoading={status === "streaming" && index === filtered.length - 1}
           isReadonly={isReadonly}
           key={message.id}
           message={message}
           regenerate={regenerate}
           requiresScrollPadding={
-            hasSentMessage && index === messages.length - 1
+            hasSentMessage && index === filtered.length - 1
           }
           setMessages={setMessages}
           vote={

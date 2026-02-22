@@ -11,80 +11,81 @@
 @plugin "tailwindcss-animate";
 @plugin "@tailwindcss/typography";
 
-/* define design tokens (light mode) — DTSM brand teal + warm sand */
+/* define design tokens (light mode) — DTSM official brand colors */
+/* Primary: #6BC4BB (Downy teal), Neutral: #D6D6D6 (Alto), Dark: #203141 (Te Papa Green) */
 :root {
-  --background: hsl(37 35% 97%);
-  --foreground: hsl(25 20% 18%);
-  --card: hsl(37 35% 97%);
-  --card-foreground: hsl(25 20% 18%);
-  --popover: hsl(38 30% 98%);
-  --popover-foreground: hsl(25 20% 18%);
-  --primary: hsl(170 40% 33%);
+  --background: hsl(0 0% 98%);
+  --foreground: hsl(209 34% 19%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(209 34% 19%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(209 34% 19%);
+  --primary: hsl(174 43% 59%);
   --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(37 40% 94%);
-  --secondary-foreground: hsl(170 35% 24%);
-  --muted: hsl(35 28% 93%);
-  --muted-foreground: hsl(25 10% 48%);
-  --accent: hsl(38 60% 88%);
-  --accent-foreground: hsl(25 18% 18%);
+  --secondary: hsl(0 0% 95%);
+  --secondary-foreground: hsl(209 34% 19%);
+  --muted: hsl(0 0% 96%);
+  --muted-foreground: hsl(209 10% 45%);
+  --accent: hsl(174 30% 90%);
+  --accent-foreground: hsl(209 34% 19%);
   --destructive: hsl(0 84.2% 60.2%);
   --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(35 22% 87%);
-  --input: hsl(35 22% 87%);
-  --ring: hsl(170 40% 33%);
-  --chart-1: hsl(170 40% 33%);
-  --chart-2: hsl(195 50% 42%);
-  --chart-3: hsl(38 70% 58%);
-  --chart-4: hsl(170 35% 50%);
-  --chart-5: hsl(18 80% 62%);
-  --sidebar-background: hsl(37 45% 96%);
-  --sidebar-foreground: hsl(25 18% 25%);
-  --sidebar-primary: hsl(170 40% 33%);
+  --border: hsl(0 0% 84%);
+  --input: hsl(0 0% 84%);
+  --ring: hsl(174 43% 59%);
+  --chart-1: hsl(174 43% 59%);
+  --chart-2: hsl(209 34% 40%);
+  --chart-3: hsl(174 35% 40%);
+  --chart-4: hsl(209 25% 55%);
+  --chart-5: hsl(174 50% 72%);
+  --sidebar-background: hsl(0 0% 97%);
+  --sidebar-foreground: hsl(209 34% 19%);
+  --sidebar-primary: hsl(174 43% 59%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(37 45% 92%);
-  --sidebar-accent-foreground: hsl(25 18% 18%);
-  --sidebar-border: hsl(35 22% 89%);
-  --sidebar-ring: hsl(170 40% 33%);
+  --sidebar-accent: hsl(0 0% 93%);
+  --sidebar-accent-foreground: hsl(209 34% 19%);
+  --sidebar-border: hsl(0 0% 84%);
+  --sidebar-ring: hsl(174 43% 59%);
   /* border radius unit */
   --radius: 0.5rem;
-  --sidebar: hsl(37 45% 96%);
+  --sidebar: hsl(0 0% 97%);
 }
 
-/* define design tokens (dark mode) — DTSM brand teal evening */
+/* define design tokens (dark mode) — Te Papa Green navy base */
 .dark {
-  --background: hsl(25 14% 11%);
-  --foreground: hsl(37 22% 92%);
-  --card: hsl(25 14% 11%);
-  --card-foreground: hsl(37 22% 92%);
-  --popover: hsl(25 14% 12%);
-  --popover-foreground: hsl(37 22% 92%);
-  --primary: hsl(170 40% 48%);
+  --background: hsl(209 34% 19%);
+  --foreground: hsl(0 0% 95%);
+  --card: hsl(209 30% 22%);
+  --card-foreground: hsl(0 0% 95%);
+  --popover: hsl(209 30% 22%);
+  --popover-foreground: hsl(0 0% 95%);
+  --primary: hsl(174 43% 59%);
   --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(25 10% 16%);
-  --secondary-foreground: hsl(37 18% 88%);
-  --muted: hsl(25 10% 16%);
-  --muted-foreground: hsl(25 8% 55%);
-  --accent: hsl(35 22% 20%);
-  --accent-foreground: hsl(37 50% 82%);
+  --secondary: hsl(209 25% 26%);
+  --secondary-foreground: hsl(0 0% 85%);
+  --muted: hsl(209 25% 26%);
+  --muted-foreground: hsl(209 10% 60%);
+  --accent: hsl(209 25% 28%);
+  --accent-foreground: hsl(0 0% 90%);
   --destructive: hsl(0 62.8% 30.6%);
   --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(25 10% 20%);
-  --input: hsl(25 10% 20%);
-  --ring: hsl(170 40% 48%);
-  --chart-1: hsl(170 40% 48%);
-  --chart-2: hsl(195 50% 50%);
-  --chart-3: hsl(38 55% 55%);
-  --chart-4: hsl(170 35% 55%);
-  --chart-5: hsl(18 70% 55%);
-  --sidebar-background: hsl(25 14% 9%);
-  --sidebar-foreground: hsl(37 15% 90%);
-  --sidebar-primary: hsl(170 40% 48%);
+  --border: hsl(209 25% 28%);
+  --input: hsl(209 25% 28%);
+  --ring: hsl(174 43% 59%);
+  --chart-1: hsl(174 43% 59%);
+  --chart-2: hsl(209 34% 55%);
+  --chart-3: hsl(174 35% 45%);
+  --chart-4: hsl(209 25% 65%);
+  --chart-5: hsl(174 50% 72%);
+  --sidebar-background: hsl(209 34% 15%);
+  --sidebar-foreground: hsl(0 0% 90%);
+  --sidebar-primary: hsl(174 43% 59%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(25 10% 16%);
-  --sidebar-accent-foreground: hsl(37 15% 90%);
-  --sidebar-border: hsl(25 10% 16%);
-  --sidebar-ring: hsl(170 40% 48%);
-  --sidebar: hsl(25 14% 9%);
+  --sidebar-accent: hsl(209 25% 22%);
+  --sidebar-accent-foreground: hsl(0 0% 90%);
+  --sidebar-border: hsl(209 25% 22%);
+  --sidebar-ring: hsl(174 43% 59%);
+  --sidebar: hsl(209 34% 15%);
 }
 
 /* define theme */

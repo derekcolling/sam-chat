@@ -69,19 +69,21 @@ function PureMessages({
             </>
           )}
 
-          {messages.map((message, index) => (
+          {messages.filter((message) =>
+            !(message.role === "user" && message.parts?.length === 1 && message.parts[0].type === "text" && (message.parts[0] as { type: "text"; text: string }).text === "[NEW_VISITOR_INIT]")
+          ).map((message, index, filtered) => (
             <PreviewMessage
               addToolResult={addToolResult}
               chatId={chatId}
               isLoading={
-                status === "streaming" && messages.length - 1 === index
+                status === "streaming" && filtered.length - 1 === index
               }
               isReadonly={isReadonly}
               key={message.id}
               message={message}
               regenerate={regenerate}
               requiresScrollPadding={
-                hasSentMessage && index === messages.length - 1
+                hasSentMessage && index === filtered.length - 1
               }
               setMessages={setMessages}
               vote={

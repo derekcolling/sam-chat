@@ -19,6 +19,7 @@ import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
 import { updateDocument } from "@/lib/ai/tools/update-document";
 import { getParking } from "@/lib/ai/tools/get-parking";
 import { getBeachSafety } from "@/lib/ai/tools/get-beach-safety";
+import { getEvents } from "@/lib/ai/tools/get-events";
 import { saveUserProfileTool } from "@/lib/ai/tools/save-user-profile";
 import { askVisitorQuizTool } from "@/lib/ai/tools/ask-visitor-quiz";
 import { chatModels, DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
@@ -174,6 +175,7 @@ export async function POST(request: Request) {
               "getWeather",
               "getParking",
               "getBeachSafety",
+              "getEvents",
               "saveUserProfile",
               "askVisitorQuiz",
               "createDocument",
@@ -191,6 +193,7 @@ export async function POST(request: Request) {
             getWeather,
             getParking,
             getBeachSafety,
+            getEvents,
             saveUserProfile: saveUserProfileTool({ session }),
             askVisitorQuiz: askVisitorQuizTool,
             createDocument: createDocument({ session, dataStream }),

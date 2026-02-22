@@ -34,13 +34,19 @@ function PureChatHeader({
       </div>
 
       <div className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt="Downtown Santa Monica"
+          className="size-6 rounded-full"
+          src="/images/dtsm-logo-circle.jpeg"
+        />
         <span className="text-sm font-medium text-muted-foreground">
           Ask Sam
         </span>
         <Link href="/memory">
           <Badge
             variant="outline"
-            className="text-[10px] h-5 px-1.5 flex items-center gap-1 bg-blue-50/50 text-blue-600 border-blue-200 hover:bg-blue-100 transition-colors cursor-pointer"
+            className="text-[10px] h-5 px-1.5 flex items-center gap-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 transition-colors cursor-pointer"
           >
             <Brain className="w-3 h-3" />
             Memory Beta

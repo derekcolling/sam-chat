@@ -24,6 +24,7 @@ import { PreviewAttachment } from "./preview-attachment";
 import { Weather } from "./weather";
 import { ParkingStatus } from "./parking-status";
 import { BeachSafetyCard } from "./beach-safety-card";
+import { EventsCalendar } from "./events-calendar";
 import { VisitorQuizCard } from "./visitor-quiz-card";
 
 const PurePreviewMessage = ({
@@ -231,11 +232,34 @@ const PurePreviewMessage = ({
               );
             }
 
-            if (type === "tool-askVisitorQuiz") {
-              const { toolCallId, output } = part as any;
+            if (type === "tool-getEvents") {
+              const { toolCallId, state } = part;
               const widthClass = "w-[min(100%,450px)]";
 
-              if (!output) {
+              if (state === "output-available") {
+                return (
+                  <div className={widthClass} key={toolCallId}>
+                    <EventsCalendar events={part.output} />
+                  </div>
+                );
+              }
+
+              // Loading state
+              return (
+                <div className={widthClass} key={toolCallId}>
+                  <div className="flex items-center gap-2 rounded-2xl bg-muted/50 p-4 text-muted-foreground text-sm">
+                    <span className="animate-pulse">Checking local events calendar...</span>
+                  </div>
+                </div>
+              );
+            }
+
+            if (type === "tool-askVisitorQuiz") {
+              const { toolCallId } = part;
+              const input = (part as any).input;
+              const widthClass = "w-[min(100%,450px)]";
+
+              if (!input) {
                 return (
                   <div className={widthClass} key={toolCallId}>
                     <div className="flex items-center gap-2 rounded-2xl bg-muted/50 p-4 text-muted-foreground text-sm">
@@ -248,8 +272,10 @@ const PurePreviewMessage = ({
               return (
                 <div className={widthClass} key={toolCallId}>
                   <VisitorQuizCard
-                    reason={output.reason || "I'd love to learn more about your trip!"}
-                    onComplete={() => { }}
+                    reason={input.reason || "I'd love to learn more about your trip!"}
+                    onComplete={(data) => {
+                      addToolResult({ tool: "askVisitorQuiz", toolCallId, output: data });
+                    }}
                   />
                 </div>
               );

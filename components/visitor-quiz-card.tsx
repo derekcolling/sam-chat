@@ -52,7 +52,7 @@ export function VisitorQuizCard({ reason, onComplete }: VisitorQuizProps) {
 
     if (isDone) {
         return (
-            <Card className="w-full max-w-smborder-blue-100 bg-blue-50/30">
+            <Card className="w-full max-w-sm border-blue-100 bg-blue-50/30">
                 <CardHeader className="flex flex-row items-center gap-2 pb-2">
                     <CheckCircle2 className="w-5 h-5 text-blue-500" />
                     <CardTitle className="text-base text-blue-900">Preferences Saved</CardTitle>

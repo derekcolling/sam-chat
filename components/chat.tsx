@@ -170,17 +170,6 @@ export function Chat({
     }
   }, [query, sendMessage, hasAppendedQuery, id]);
 
-  // Auto-start the visitor quiz for new chats with no prior messages
-  const [hasTriggeredOnboarding, setHasTriggeredOnboarding] = useState(false);
-  useEffect(() => {
-    if (initialMessages.length === 0 && !hasTriggeredOnboarding && !query) {
-      setHasTriggeredOnboarding(true);
-      sendMessage({
-        role: "user" as const,
-        parts: [{ type: "text", text: "[NEW_VISITOR_INIT]" }],
-      });
-    }
-  }, [initialMessages.length, hasTriggeredOnboarding, query, sendMessage]);
 
   const { data: votes } = useSWR<Vote[]>(
     messages.length >= 2 ? `/api/vote?chatId=${id}` : null,

@@ -30,12 +30,12 @@ export const Greeting = () => {
       </motion.div>
       <motion.div
         animate={{ opacity: 1, y: 0 }}
-        className="text-xl text-muted-foreground md:text-2xl"
+        className="text-lg text-muted-foreground md:text-xl"
         exit={{ opacity: 0, y: 10 }}
         initial={{ opacity: 0, y: 10 }}
         transition={{ delay: 0.6 }}
       >
-        Your guide to everything Downtown Santa Monica. Ask me about restaurants, shopping, parking, getting around, or what's happening this weekend. What can I help you find?
+        Your guide to Downtown Santa Monica — restaurants, parking, events, and more.
       </motion.div>
     </div>
   );

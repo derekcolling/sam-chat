@@ -38,8 +38,6 @@ export type ChatTools = {
   updateDocument: updateDocumentTool;
   requestSuggestions: requestSuggestionsTool;
   saveUserProfile: saveUserProfileToolType;
-  // Client-side tool: output type declared explicitly since there is no server execute
-  askVisitorQuiz: { input: { reason: string }; output: { success: boolean; result: string } };
 };
 
 export type CustomUIDataTypes = {

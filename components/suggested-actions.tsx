@@ -23,7 +23,7 @@ function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
 
   return (
     <div
-      className="flex flex-wrap justify-center gap-2"
+      className="grid grid-cols-2 gap-2"
       data-testid="suggested-actions"
     >
       {suggestedActions.map((suggestedAction, index) => (
@@ -35,7 +35,7 @@ function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
           transition={{ delay: 0.05 * index }}
         >
           <Suggestion
-            className="rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+            className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground transition-colors hover:bg-muted text-center"
             onClick={(suggestion) => {
               window.history.pushState({}, "", `/chat/${chatId}`);
               sendMessage({

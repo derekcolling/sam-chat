@@ -10,7 +10,7 @@ import { SuggestedActions } from "./suggested-actions";
 import type { VisibilityType } from "./visibility-selector";
 
 type MessagesProps = {
-  addToolApprovalResponse: UseChatHelpers<ChatMessage>["addToolApprovalResponse"];
+  addToolResult: UseChatHelpers<ChatMessage>["addToolResult"];
   chatId: string;
   status: UseChatHelpers<ChatMessage>["status"];
   votes: Vote[] | undefined;
@@ -25,7 +25,7 @@ type MessagesProps = {
 };
 
 function PureMessages({
-  addToolApprovalResponse,
+  addToolResult,
   chatId,
   status,
   votes,
@@ -71,7 +71,7 @@ function PureMessages({
 
           {messages.map((message, index) => (
             <PreviewMessage
-              addToolApprovalResponse={addToolApprovalResponse}
+              addToolResult={addToolResult}
               chatId={chatId}
               isLoading={
                 status === "streaming" && messages.length - 1 === index

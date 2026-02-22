@@ -85,7 +85,7 @@ export function Chat({
     stop,
     regenerate,
     resumeStream,
-    addToolApprovalResponse,
+    addToolResult,
   } = useChat<ChatMessage>({
     id,
     messages: initialMessages,
@@ -195,7 +195,7 @@ export function Chat({
         />
 
         <Messages
-          addToolApprovalResponse={addToolApprovalResponse}
+          addToolResult={addToolResult}
           chatId={id}
           isArtifactVisible={isArtifactVisible}
           isReadonly={isReadonly}
@@ -231,7 +231,7 @@ export function Chat({
       </div>
 
       <Artifact
-        addToolApprovalResponse={addToolApprovalResponse}
+        addToolResult={addToolResult}
         attachments={attachments}
         chatId={id}
         input={input}

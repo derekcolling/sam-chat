@@ -205,21 +205,27 @@ About the origin of user's request:
 export const systemPrompt = ({
   selectedChatModel,
   requestHints,
+  userProfileContext,
 }: {
   selectedChatModel: string;
   requestHints: RequestHints;
+  userProfileContext?: string;
 }) => {
   const requestPrompt = getRequestPromptFromHints(requestHints);
+
+  const memoryPrompt = userProfileContext
+    ? `\n\n## USER PROFILE MEMORY\nYou have previously learned and saved the following details about this user. Use this context naturally and warmly to personalize your recommendations! Do not bring it up mechanically, but do acknowledge their timeline, preferences, or plans if relevant.\n\n${userProfileContext}`
+    : `\n\n## NEW VISITOR ONBOARDING\nYou do not currently have any saved memory about this user. Please call the \`askVisitorQuiz\` tool to introduce yourself and proactively ask for their trip details (duration, party size, interests). Use the tool naturally.`;
 
   // reasoning models don't need artifacts prompt (they can't use tools)
   if (
     selectedChatModel.includes("reasoning") ||
     selectedChatModel.includes("thinking")
   ) {
-    return `${regularPrompt}\n\n${requestPrompt}`;
+    return `${regularPrompt}\n\n${requestPrompt}${memoryPrompt}`;
   }
 
-  return `${regularPrompt}\n\n${requestPrompt}\n\n${artifactsPrompt}`;
+  return `${regularPrompt}\n\n${requestPrompt}${memoryPrompt}\n\n${artifactsPrompt}`;
 };
 
 export const codePrompt = `

@@ -29,6 +29,8 @@ import {
   suggestion,
   type User,
   user,
+  type UserProfile,
+  userProfile,
   vote,
 } from "./schema";
 import { generateHashedPassword } from "./utils";
@@ -597,6 +599,45 @@ export async function getStreamIdsByChatId({ chatId }: { chatId: string }) {
     throw new OpenChatError(
       "bad_request:database",
       "Failed to get stream ids by chat id"
+    );
+  }
+}
+
+export async function saveUserProfile({
+  userId,
+  content,
+}: {
+  userId: string;
+  content: string;
+}) {
+  try {
+    return await db.insert(userProfile).values({
+      userId,
+      content,
+    });
+  } catch (_error) {
+    throw new OpenChatError(
+      "bad_request:database",
+      "Failed to save user profile memory"
+    );
+  }
+}
+
+export async function getUserProfilesByUserId({
+  userId,
+}: {
+  userId: string;
+}) {
+  try {
+    return await db
+      .select()
+      .from(userProfile)
+      .where(eq(userProfile.userId, userId))
+      .orderBy(asc(userProfile.createdAt));
+  } catch (_error) {
+    throw new OpenChatError(
+      "bad_request:database",
+      "Failed to get user profiles"
     );
   }
 }

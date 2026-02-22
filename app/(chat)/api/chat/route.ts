@@ -19,6 +19,9 @@ import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
 import { updateDocument } from "@/lib/ai/tools/update-document";
 import { getParking } from "@/lib/ai/tools/get-parking";
 import { getBeachSafety } from "@/lib/ai/tools/get-beach-safety";
+import { saveUserProfileTool } from "@/lib/ai/tools/save-user-profile";
+import { askVisitorQuizTool } from "@/lib/ai/tools/ask-visitor-quiz";
+import { chatModels, DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -26,6 +29,7 @@ import {
   getChatById,
   getMessageCountByUserId,
   getMessagesByChatId,
+  getUserProfilesByUserId,
   saveChat,
   saveMessages,
   updateChatTitleById,
@@ -61,8 +65,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { id, message, messages, selectedChatModel, selectedVisibilityType } =
+    const { id, message, messages, selectedChatModel: requestedModel, selectedVisibilityType } =
       requestBody;
+
+    // Validate requested model to prevent stale/invalid IDs (e.g. gpt-4o) from breaking the stream
+    const validModelIds = chatModels.map((m) => m.id);
+    const selectedChatModel = validModelIds.includes(requestedModel)
+      ? requestedModel
+      : DEFAULT_CHAT_MODEL;
 
     const session = await auth();
 
@@ -117,6 +127,18 @@ export async function POST(request: Request) {
       country,
     };
 
+    let userProfileContext = undefined;
+    if (session?.user?.id) {
+      try {
+        const profiles = await getUserProfilesByUserId({ userId: session.user.id });
+        if (profiles.length > 0) {
+          userProfileContext = profiles.map(p => `- ${p.content}`).join("\n");
+        }
+      } catch (error) {
+        console.error("[Memory Skill] Failed to fetch user profile (likely pending DB migration):", error);
+      }
+    }
+
     if (message?.role === "user") {
       await saveMessages({
         messages: [
@@ -143,7 +165,7 @@ export async function POST(request: Request) {
       execute: async ({ writer: dataStream }) => {
         const result = streamText({
           model: getLanguageModel(selectedChatModel),
-          system: systemPrompt({ selectedChatModel, requestHints }),
+          system: systemPrompt({ selectedChatModel, requestHints, userProfileContext }),
           messages: modelMessages,
           stopWhen: stepCountIs(5),
           experimental_activeTools: isReasoningModel
@@ -152,6 +174,8 @@ export async function POST(request: Request) {
               "getWeather",
               "getParking",
               "getBeachSafety",
+              "saveUserProfile",
+              "askVisitorQuiz",
               "createDocument",
               "updateDocument",
               "requestSuggestions",
@@ -167,6 +191,8 @@ export async function POST(request: Request) {
             getWeather,
             getParking,
             getBeachSafety,
+            saveUserProfile: saveUserProfileTool({ session }),
+            askVisitorQuiz: askVisitorQuizTool,
             createDocument: createDocument({ session, dataStream }),
             updateDocument: updateDocument({ session, dataStream }),
             requestSuggestions: requestSuggestions({ session, dataStream }),

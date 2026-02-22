@@ -24,9 +24,10 @@ import { PreviewAttachment } from "./preview-attachment";
 import { Weather } from "./weather";
 import { ParkingStatus } from "./parking-status";
 import { BeachSafetyCard } from "./beach-safety-card";
+import { VisitorQuizCard } from "./visitor-quiz-card";
 
 const PurePreviewMessage = ({
-  addToolApprovalResponse,
+  addToolResult,
   chatId,
   message,
   vote,
@@ -36,7 +37,7 @@ const PurePreviewMessage = ({
   isReadonly,
   requiresScrollPadding: _requiresScrollPadding,
 }: {
-  addToolApprovalResponse: UseChatHelpers<ChatMessage>["addToolApprovalResponse"];
+  addToolResult: UseChatHelpers<ChatMessage>["addToolResult"];
   chatId: string;
   message: ChatMessage;
   vote: Vote | undefined;
@@ -226,6 +227,30 @@ const PurePreviewMessage = ({
                   <div className="flex items-center gap-2 rounded-2xl bg-muted/50 p-4 text-muted-foreground text-sm">
                     <span className="animate-pulse">Checking latest beach safety data...</span>
                   </div>
+                </div>
+              );
+            }
+
+            if (type === "tool-askVisitorQuiz") {
+              const { toolCallId, output } = part as any;
+              const widthClass = "w-[min(100%,450px)]";
+
+              if (!output) {
+                return (
+                  <div className={widthClass} key={toolCallId}>
+                    <div className="flex items-center gap-2 rounded-2xl bg-muted/50 p-4 text-muted-foreground text-sm">
+                      <span className="animate-pulse">Preparing questionnaire...</span>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <div className={widthClass} key={toolCallId}>
+                  <VisitorQuizCard
+                    reason={output.reason || "I'd love to learn more about your trip!"}
+                    onComplete={() => { }}
+                  />
                 </div>
               );
             }

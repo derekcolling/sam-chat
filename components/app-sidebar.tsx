@@ -14,6 +14,7 @@ import {
 } from "@/components/sidebar-history";
 import { SidebarUserNav } from "@/components/sidebar-user-nav";
 import { Button } from "@/components/ui/button";
+import { Brain } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -75,7 +76,26 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   Ask Sam
                 </span>
               </Link>
-              <div className="flex flex-row gap-1">
+              <div className="flex flex-row gap-1 items-center">
+                {user && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/memory">
+                        <Button
+                          className="h-8 p-1 md:h-fit md:p-2"
+                          onClick={() => setOpenMobile(false)}
+                          type="button"
+                          variant="ghost"
+                        >
+                          <Brain className="w-5 h-5 text-blue-500" />
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent align="end" className="hidden md:block">
+                      Memory Dashboard
+                    </TooltipContent>
+                  </Tooltip>
+                )}
                 {user && (
                   <Tooltip>
                     <TooltipTrigger asChild>

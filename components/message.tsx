@@ -16,7 +16,6 @@ import {
   ToolInput,
   ToolOutput,
 } from "./elements/tool";
-import { SparklesIcon } from "./icons";
 import { MessageActions } from "./message-actions";
 import { MessageEditor } from "./message-editor";
 import { MessageReasoning } from "./message-reasoning";
@@ -68,9 +67,12 @@ const PurePreviewMessage = ({
         })}
       >
         {message.role === "assistant" && (
-          <div className="-mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-background ring-1 ring-border">
-            <SparklesIcon size={14} />
-          </div>
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            alt="Sam"
+            className="-mt-1 size-8 shrink-0 rounded-full"
+            src="/images/dtsm-logo-circle.jpeg"
+          />
         )}
 
         <div
